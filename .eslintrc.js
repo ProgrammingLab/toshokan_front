@@ -16,5 +16,18 @@ module.exports = {
   rules: {
     "semi": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
+  },
+  settings: {
+    "import/resolver": {
+      "babel-module": {
+          "root": ".",
+          "alias": {
+              "~": ".",
+              "@": ".",
+              "~~": ".",
+              "@@": "."
+          }
+      }
+    }
   }
 }
