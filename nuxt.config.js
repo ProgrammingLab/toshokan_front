@@ -42,6 +42,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/bulma',
   ],
   /*
   ** Axios module configuration
@@ -57,8 +58,25 @@ export default {
     ** You can extend webpack config here
     */
 
+    postcss: {
+      plugins: {
+        'postcss-preset-env': {
+          features: {
+            customProperties: false,
+          },
+        },
+      },
+    },
     // eslint-disable-next-line no-unused-vars
     extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+        });
+      }
     },
   },
 };
