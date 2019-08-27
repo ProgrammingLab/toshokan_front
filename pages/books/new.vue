@@ -44,7 +44,9 @@
 
     <div class="field">
       <div class="control">
-        <input type="submit" class="button is-link">
+        <button class="button is-link is-primary">
+          決定
+        </button>
       </div>
     </div>
   </div>
