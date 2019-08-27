@@ -41,5 +41,11 @@
         <input class="input" type="text">
       </div>
     </div>
+
+    <div class="field">
+      <div class="control">
+        <input type="submit" class="button is-link">
+      </div>
+    </div>
   </div>
 </template>
