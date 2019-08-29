@@ -41,15 +41,14 @@ export default {
       );
       if (code) {
         ctx.strokeStyle = 'lime';
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(code.location.topLeftCorner.x, code.location.topLeftCorner.y);
         ctx.lineTo(code.location.bottomLeftCorner.x, code.location.bottomLeftCorner.y);
         ctx.lineTo(code.location.bottomRightCorner.x, code.location.bottomRightCorner.y);
         ctx.lineTo(code.location.topRightCorner.x, code.location.topRightCorner.y);
-        ctx.lineTo(code.location.topLeftCorner.x, code.location.topLeftCorner.y);
-        ctx.stroke();
         ctx.closePath();
+        ctx.stroke();
         this.result = code.data;
       } else {
         window.requestAnimationFrame(this.capture);
