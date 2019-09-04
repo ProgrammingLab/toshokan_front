@@ -15,6 +15,14 @@
 import jsQR from 'jsqr';
 
 export default {
+  props: {
+    onSuccess: {
+      type: Function,
+      // eslint-disable-next-line no-unused-vars
+      default: (code) => (undefined),
+    },
+  },
+
   data: () => ({
     video: null,
     dim: { width: 1280, height: 720 },
@@ -56,6 +64,8 @@ export default {
       );
       if (code) {
         this.video.pause();
+
+        // limeで囲う
         ctx.strokeStyle = 'lime';
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -65,7 +75,9 @@ export default {
         ctx.lineTo(code.location.topRightCorner.x, code.location.topRightCorner.y);
         ctx.closePath();
         ctx.stroke();
+
         this.result = code.data;
+        this.onSuccess(code.data);
       } else {
         window.requestAnimationFrame(this.capture);
       }
