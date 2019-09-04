@@ -44,8 +44,8 @@ export default {
           this.capture();
 
           const settings = stream.getVideoTracks()[0].getSettings();
-          this.offset.x = this.dim.width - settings.width;
-          this.offset.y = this.dim.height - settings.height;
+          this.offset.x = Math.floor((this.dim.width - settings.width) / 2);
+          this.offset.y = Math.floor((this.dim.height - settings.height) / 2);
         })
         .catch((err) => {
           // eslint-disable-next-line no-console
