@@ -40,12 +40,12 @@ export default {
         .then((stream) => {
           this.video = document.createElement('video');
           this.video.srcObject = stream;
-          this.video.play();
-          this.capture();
 
           const settings = stream.getVideoTracks()[0].getSettings();
           this.offset.x = Math.floor((this.dim.width - settings.width) / 2);
           this.offset.y = Math.floor((this.dim.height - settings.height) / 2);
+
+          this.capture();
         })
         .catch((err) => {
           // eslint-disable-next-line no-console
@@ -56,6 +56,9 @@ export default {
 
   methods: {
     capture() {
+      if (this.video.paused) {
+        this.video.play();
+      }
       const ctx = this.$refs.capture.getContext('2d');
       ctx.drawImage(this.video, this.offset.x, this.offset.y);
       const code = jsQR(
