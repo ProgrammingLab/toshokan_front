@@ -15,14 +15,6 @@
 import jsQR from 'jsqr';
 
 export default {
-  props: {
-    onSuccess: {
-      type: Function,
-      // eslint-disable-next-line no-unused-vars
-      default: (code) => (undefined),
-    },
-  },
-
   data: () => ({
     video: null,
     dim: { width: 1280, height: 720 },
@@ -80,7 +72,7 @@ export default {
         ctx.stroke();
 
         this.result = code.data;
-        this.onSuccess(code.data);
+        this.$emit('success', code.data);
       } else {
         window.requestAnimationFrame(this.capture);
       }
