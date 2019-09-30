@@ -15,7 +15,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/bulma": "^1.2.4",
-    "jsqr": "^1.2.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
