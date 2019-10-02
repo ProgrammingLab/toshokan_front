@@ -56,6 +56,10 @@ export default {
         this.video.play();
       }
 
+      const { capture } = this.$refs;
+      const ctx = capture.getContext('2d');
+      ctx.clearRect(0, 0, capture.width, capture.height);
+
       window.requestAnimationFrame(this.capture_loop);
     },
 
