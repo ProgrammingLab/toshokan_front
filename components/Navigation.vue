@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <button class="button">
+    <button class="button" @click="onClickLogin">
       プロラボアカウントでログイン
     </button>
   </nav>
@@ -8,7 +8,11 @@
 
 <script>
 export default {
-
+  methods: {
+    onClickLogin() {
+      this.$auth.loginWith('prolab');
+    },
+  },
 };
 </script>
 

@@ -1,3 +1,5 @@
+const filename = `.env.${process.env.NODE_ENV || 'local'}`;
+require('dotenv').config({ path: filename });
 
 export default {
   mode: 'universal',
@@ -36,6 +38,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    ['@nuxtjs/dotenv', { filename }],
   ],
   /*
   ** Nuxt.js modules
@@ -43,6 +46,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/bulma',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
   /*
   ** Build configuration
@@ -71,6 +76,23 @@ export default {
           exclude: /(node_modules)/,
         });
       }
+    },
+  },
+  auth: {
+    strategies: {
+      prolab: {
+        _scheme: 'oauth2',
+        authorization_endpoint: `${process.env.OAUTH2_BASE_URL}/oauth2/auth`,
+        access_token_endpoint: `${process.env.OAUTH2_BASE_URL}/oauth2/token`,
+        userinfo_endpoint: false,
+        scope: ['openid', 'profile.read'],
+        access_type: 'offline',
+        response_type: 'code',
+        token_type: 'Bearer',
+        client_id: process.env.PROLAB_ACCOUNTS_CLIENT_ID,
+        token_key: 'access_token',
+        redirect_uri: process.env.OAUTH2_CALLBACK_URL,
+      },
     },
   },
 };
