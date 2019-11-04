@@ -88,6 +88,7 @@ export default {
         scope: ['openid', 'profile.read'],
         access_type: 'offline',
         response_type: 'code',
+        grant_type: 'authorization_code',
         token_type: 'Bearer',
         client_id: process.env.PROLAB_ACCOUNTS_CLIENT_ID,
         token_key: 'access_token',
