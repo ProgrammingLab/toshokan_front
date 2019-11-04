@@ -1,4 +1,5 @@
 const filename = `.env.${process.env.NODE_ENV || 'local'}`;
+// eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config({ path: filename });
 
 export default {
