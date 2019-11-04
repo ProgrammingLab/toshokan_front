@@ -1,3 +1,6 @@
+const filename = `.env.${process.env.NODE_ENV || 'local'}`;
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config({ path: filename });
 
 export default {
   mode: 'universal',
@@ -31,6 +34,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/toshokan-api-client.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -38,21 +42,17 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    ['@nuxtjs/dotenv', { filename }],
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/bulma',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
-  },
   /*
   ** Build configuration
   */
@@ -80,6 +80,24 @@ export default {
           exclude: /(node_modules)/,
         });
       }
+    },
+  },
+  auth: {
+    strategies: {
+      prolab: {
+        _scheme: 'oauth2',
+        authorization_endpoint: `${process.env.OAUTH2_BASE_URL}/oauth2/auth`,
+        access_token_endpoint: `${process.env.OAUTH2_BASE_URL}/oauth2/token`,
+        userinfo_endpoint: false,
+        scope: ['openid', 'profile.read'],
+        access_type: 'offline',
+        response_type: 'code',
+        grant_type: 'authorization_code',
+        token_type: 'Bearer',
+        client_id: process.env.PROLAB_ACCOUNTS_CLIENT_ID,
+        token_key: 'access_token',
+        redirect_uri: process.env.OAUTH2_CALLBACK_URL,
+      },
     },
   },
 };
